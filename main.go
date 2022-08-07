@@ -3,14 +3,13 @@ package main
 import (
 	"net/http"
 
+	"github.com/Erickype/GoGormRestApi/routes"
 	"github.com/gorilla/mux"
 )
 
 func main() {
 	router := mux.NewRouter()
-	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Hola mundo"))
-	})
+	router.HandleFunc("/", routes.HomeHandler)
 
 	http.ListenAndServe(":3000", router)
 }
