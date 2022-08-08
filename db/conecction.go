@@ -7,7 +7,7 @@ import (
 	"gorm.io/gorm"
 )
 
-var DSN = "host=localhost user=erickype password=erickype97. dbname=gorn port5432"
+var DSN = "host=localhost user=erickype password=erickype97. dbname=gorn port=5432"
 var DB *gorm.DB
 
 func DBConecction() {
@@ -17,6 +17,6 @@ func DBConecction() {
 	if error != nil {
 		log.Fatal(error)
 	} else {
-		log.Panicln("DB coneccted")
+		log.Println("DB coneccted")
 	}
 }
