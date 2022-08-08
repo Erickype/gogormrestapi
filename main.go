@@ -19,6 +19,7 @@ func main() {
 
 	router := mux.NewRouter()
 	router.HandleFunc("/", routes.HomeHandler)
+	router.HandleFunc("/users", routes.GetUsersHandler).Methods("GET")
 
 	http.ListenAndServe(":3000", router)
 }
