@@ -1,6 +1,13 @@
 package routes
 
-import "net/http"
+import (
+	"encoding/json"
+	"log"
+	"net/http"
+
+	"github.com/Erickype/GoGormRestApi/db"
+	"github.com/Erickype/GoGormRestApi/models"
+)
 
 func GetUsersHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("get users"))
@@ -11,7 +18,21 @@ func GetUserHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func PostUserHandler(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("post user"))
+
+	//conseguir datos de body
+	var user models.User
+	json.NewDecoder(r.Body).Decode(&user)
+	log.Printf("Body: %v", r.Body)
+	//crear usuario
+	createdUser := db.DB.Create(&user)
+	err := createdUser.Error
+
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(err.Error()))
+	}
+
+	json.NewEncoder(w).Encode(&user)
 }
 
 func DeleteUserHandler(w http.ResponseWriter, r *http.Request) {
