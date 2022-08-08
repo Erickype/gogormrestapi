@@ -5,8 +5,8 @@ import "gorm.io/gorm"
 type Task struct {
 	gorm.Model
 
-	Title       string
+	Title       string `gorm:"type:varchar(100); not null; unique_index"`
 	Description string
-	Done        bool
+	Done        bool `gorm:"default:false"`
 	UserId      uint
 }
